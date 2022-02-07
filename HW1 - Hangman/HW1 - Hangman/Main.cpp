@@ -5,12 +5,13 @@
 int main()
 {
     //strings and other variables
-    char word[10] = "Tropical";
-    char correctGuesses[11] = "";
+    char word[10] = "tropical";
+    char correctGuesses[10] = "";
     char incorrectGuesses[11] = "";
     char guess[4] = "";
 
     bool gameEnd = false;
+    bool isCorrect;
 
     printf("Welcome to Hangman\n");
     printf("Your word has 8 letters in it\n");
@@ -21,17 +22,35 @@ int main()
 
     while(!gameEnd)
     {
+        isCorrect = false;
+
         printf("Guess a letter: ");
-        scanf_s("%c", &guess);
+        std::cin >> guess;
         printf("Your Guess: %s\n", guess);
+
+        for (int i = 0; i < strlen(word); i++)
+        {
+            if (word[i] == *guess)
+            {
+                isCorrect = true;
+            }
+        }
         
         //what to do if guess is right
-        if (strchr(word, guess[1]))
+        if (isCorrect)
         {
-            strcat_s(correctGuesses, guess);
             showGallows(strlen(incorrectGuesses));
+            for (int i = 0; i < strlen(word); i++)
+            {
+                if(word[i] == *guess)
+                {
+                    correctGuesses[i] = *guess;
+                }
+            }
             showSolved(word, correctGuesses);
-            if (strlen(correctGuesses) == 6)
+            printf("Your incorrect guesses: %s\n", incorrectGuesses);
+
+            if (strlen(correctGuesses) == 8)
             {
                 gameEnd = true;
             }
@@ -42,6 +61,7 @@ int main()
             strcat_s(incorrectGuesses, guess);
             showGallows(strlen(incorrectGuesses));
             showSolved(word, correctGuesses);
+            printf("Your incorrect guesses: %s\n", incorrectGuesses);
             if (strlen(incorrectGuesses) == 6)
             {
                 gameEnd = true;

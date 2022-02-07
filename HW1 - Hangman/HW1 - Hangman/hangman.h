@@ -87,16 +87,5 @@ void showGallows(int guessLimit)
 
 void showSolved(char word[], char guesses[])
 {
-	char solved[7] = "______";
-	for (int i = 0; i < strlen(word); i++)
-	{
-		for (int j = 0; j < strlen(guesses); j++)
-		{
-			if (strchr(word, guesses[j]))
-			{
-				solved[i] = guesses[j];
-			}
-		}
-	}
-	printf("%s", solved);
+	printf("%s \n", guesses);
 }
